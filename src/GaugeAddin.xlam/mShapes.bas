@@ -65,6 +65,21 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
 
 
 End Sub
+
+Public Sub MoveShape(ShapeName As String, ws As Worksheet, r As Range)
+
+    
+    ActiveSheet.Shapes.Range(Array(ShapeName)).Select
+    Selection.Cut
+    
+    ws.Select
+    r.Select
+    ws.Paste
+    r.Activate
+    
+    
+End Sub
+
 Sub AddShapeHeading(cht As Chart, Optional FontSize As Long = 10, Optional FontColor As Long = 0)
 ' ----------------------------------------------------------------
 ' Procedure Name: AddShapeHeading

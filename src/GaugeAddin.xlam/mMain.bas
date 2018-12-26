@@ -77,10 +77,16 @@ Sub BuildGaugeChart()
 ' Procedure Access: Public
 ' Author: Tom Nordal
 ' Date: 2018-08-18
-' Version: 0.5
+' Version: 0.6
 ' ----------------------------------------------------------------
     Dim GaugeGroup As ShapeRange
     Dim frm As New frmGaugeChart
+    
+    Dim wsActive As Worksheet
+    Dim rActiveCell As Range
+    
+    Set wsActive = ActiveSheet
+    Set rActiveCell = ActiveCell
 
     frm.Show
 
@@ -127,6 +133,8 @@ Sub BuildGaugeChart()
     GaugeGroup.Group
 
     GaugeGroup.Name = gChartRangeName & gChartRangeID
+    
+    MoveShape gChartRangeName & gChartRangeID, wsActive, rActiveCell
         
     Unload frm
     
