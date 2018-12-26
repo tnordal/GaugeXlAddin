@@ -1,0 +1,8 @@
+rAppAuthor,=Config!$C$6,
+rAppDate,=Config!$C$5,
+rAppName,=Config!$C$3,
+rAppVersion,=Config!$C$4,
+rGaugeSetupHeadingRange,=GaugeSetting!$A$1:$A$21,
+rGaugeSetupRange,=GaugeSetting!$B$1:$B$21,
+rGaugeSetupRangeOrg,=GaugeSetting!$G$3:$I$20,
+rRGBColorTest,=Config!$F$2,
