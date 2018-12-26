@@ -2,13 +2,6 @@ Attribute VB_Name = "mUtils"
 Option Explicit
 Option Private Module
 
-
-Private Sub AA()
-
-Application.Dialogs(xlDialogEditColor).Show 2, 255, 0, 0
-
-
-End Sub
 Public Function GetColorCode(StartColorCode As Long) As Long
 Dim iRGBRed As Integer
 Dim iRGBGreen As Integer
@@ -29,7 +22,7 @@ End If
 GetColorCode = lResultCode
 
 End Function
-Public Sub ColorDialog01()
+Public Sub ColorDialog()
 
 'Create variables for the color codes
 Dim FullColorCode As Long
@@ -38,7 +31,7 @@ Dim RGBGreen As Integer
 Dim RGBBlue As Integer
 
 'Get the color code from the cell named "RGBColor"
-FullColorCode = Range("rRGBColorTest").Interior.Color
+FullColorCode = ActiveCell.Interior.Color
 
 'Get the RGB value for each color (possible values 0 - 255)
 RGBRed = FullColorCode Mod 256
@@ -54,8 +47,8 @@ If Application.Dialogs(xlDialogEditColor).Show _
     FullColorCode = ActiveWorkbook.Colors(1)
     
     'Set the color of the cell named "RGBColor"
-    Range("rRGBColorTest").Interior.Color = FullColorCode
-    Range("rRGBColorTest").Value = FullColorCode
+    ActiveCell.Interior.Color = FullColorCode
+    ActiveCell.Value = FullColorCode
 
 Else
    
