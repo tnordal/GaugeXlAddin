@@ -111,7 +111,7 @@ Sub AddShapeHeading(cht As Chart, Optional FontSize As Long = 10, Optional FontC
     gShpHeadingWidth = chtWidth * 0.3
     gShpHeadingHight = chtHight * 0.1
     
-    gShpHeadingTop = chtTop + 1 '+ (chtHight / 2) - (gShpHeadingHight / 2)
+    gShpHeadingTop = chtTop + 5 '+ (chtHight / 2) - (gShpHeadingHight / 2)
     
     gShpHeadingLeft = chtLeft + (chtWidth / 2) - (gShpHeadingWidth / 2)
     
@@ -251,7 +251,7 @@ Sub AddShapeRight(cht As Chart, Optional FontSize As Long = 8, Optional FontColo
 
 
 End Sub
-Sub AddShapRoundedRectangle(cht As Chart)
+Sub AddShapRoundedRectangle(cht As Chart, Optional BackColor As Long = 13553360)
 ' ----------------------------------------------------------------
 ' Procedure Name: AddShapRoundedRectangle
 ' Purpose: Add background for the chart
@@ -281,14 +281,18 @@ Sub AddShapRoundedRectangle(cht As Chart)
     shpTop = chtTop - (chtHight * 0.1)
     shpWidth = chtWidth * 0.7
     shpLeft = chtLeft + (chtWidth / 2) - (shpWidth / 2)
-    shpHight = (chtHight * 0.7) + (chtHight * 0.15)
+    shpHight = (chtHight * 0.65) + (chtHight * 0.15)
     
     
     Set gShpBackground = ActiveSheet.Shapes.AddShape(msoShapeRoundedRectangle, shpLeft, shpTop, shpWidth, shpHight)
     
+   
+    
     gShpBackground.ZOrder msoSendToBack
     gShpBackground.SoftEdge.Radius = 15
-    gShpBackground.Fill.ForeColor.RGB = RGB(192, 192, 192)
+    gShpBackground.Fill.ForeColor.RGB = BackColor ' RGB(192, 192, 0) 'RGB(192, 192, 192)
+    
+'     gShpBackground.ShapeStyle = msoShapeStylePreset27
 
 End Sub
 

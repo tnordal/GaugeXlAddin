@@ -17,8 +17,9 @@ Public Sub BasicGaugeStep(Optional ColorRange1 As Long = 255, Optional ColorRang
 ' Procedure Kind: Sub
 ' Procedure Access: Public
 ' Author: Tom Nordal
-' Date: 2018-08-18
-' Version: 0.5
+' Date: 2018-12-27
+' Version: 0.6
+' Changed: Add some more styling (shading donut)
 ' ----------------------------------------------------------------
 
 
@@ -82,12 +83,30 @@ Public Sub BasicGaugeStep(Optional ColorRange1 As Long = 255, Optional ColorRang
         .Solid
     End With
 
+     'Color Doughnut first sector
+    With gCht.SeriesCollection(1).Points(1).Format.Glow
+        .Color = ColorRange1 'msoThemeColorAccent4 .ObjectThemeColor
+        .Color.TintAndShade = 1
+        .Color.Brightness = 1
+        .Transparency = 0.6
+        .Radius = 8
+    End With
+    
     'Color Doughnut second sector
     With gCht.SeriesCollection(1).Points(2).Format.Fill
         .visible = msoTrue
         .ForeColor.RGB = ColorRange2
         .Transparency = 0
         .Solid
+    End With
+     
+     'Color Doughnut second sector
+    With gCht.SeriesCollection(1).Points(2).Format.Glow
+        .Color = ColorRange2 'msoThemeColorAccent4 .ObjectThemeColor
+        .Color.TintAndShade = 1
+        .Color.Brightness = 1
+        .Transparency = 0.6
+        .Radius = 8
     End With
 
     'Color Doughnut third sector
@@ -96,6 +115,15 @@ Public Sub BasicGaugeStep(Optional ColorRange1 As Long = 255, Optional ColorRang
         .ForeColor.RGB = ColorRange3
         .Transparency = 0
         .Solid
+    End With
+    
+      'Color Doughnut third sector
+    With gCht.SeriesCollection(1).Points(3).Format.Glow
+        .Color = ColorRange2 'msoThemeColorAccent4 .ObjectThemeColor
+        .Color.TintAndShade = 1
+        .Color.Brightness = 1
+        .Transparency = 0.6
+        .Radius = 8
     End With
     
     gCht.ChartArea.Format.Fill.visible = msoFalse

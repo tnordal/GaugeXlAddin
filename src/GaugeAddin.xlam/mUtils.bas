@@ -57,6 +57,33 @@ Else
 End If
 
 End Sub
+Public Function ReturnValueFromForm(formValue As Variant)
+Dim vReturnValue As Variant
+    
+    If IsNumeric(formValue) Then
+        vReturnValue = CDbl(formValue)
+    ElseIf InStr(formValue, "!$") Then
+        vReturnValue = "=" & formValue
+    Else
+        vReturnValue = formValue
+    End If
+        
+    ReturnValueFromForm = vReturnValue
+    
+End Function
+
+Private Sub testIsFormual()
+Dim s As Variant
+
+s = 40
+s = "Sheet2!$B$3"
+
+
+Debug.Print ReturnValueFromForm(s)
+
+
+End Sub
+
 Public Function WorksheetExist(wsName As String) As Boolean
     Dim ws As Worksheet
     Dim bResult As Boolean

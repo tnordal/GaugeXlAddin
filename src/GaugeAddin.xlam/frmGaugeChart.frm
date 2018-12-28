@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmGaugeChart 
-   Caption         =   "UserForm1"
-   ClientHeight    =   5832
+   Caption         =   "Gauge Chart Setup"
+   ClientHeight    =   7836
    ClientLeft      =   96
    ClientTop       =   408
    ClientWidth     =   7704
@@ -47,6 +47,10 @@ Private Sub btnTesting_Click()
 End Sub
 
 
+Private Sub lblBackgroundColor_Click()
+    lblBackgroundColor.BackColor = GetColorCode(lblBackgroundColor.BackColor)
+End Sub
+
 Private Sub lblFonColorMaxValue_Click()
     lblFonColorMaxValue.BackColor = GetColorCode(lblFonColorMaxValue.BackColor)
 End Sub
@@ -74,6 +78,7 @@ End Sub
 Private Sub lblRange3Color_Click()
     lblRange3Color.BackColor = GetColorCode(lblRange3Color.BackColor)
 End Sub
+
 
 Private Sub UserForm_Initialize()
     Dim i As Integer, f As Integer

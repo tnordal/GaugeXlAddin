@@ -74,11 +74,11 @@ Sub BuildGaugeChart()
     gHeadingRange.Formula = frm.txtHeading.Text
     gSubHeadingRange.Formula = frm.txtSubHeading.Text
     
-    gChartRangeActualValue = frm.txtActualValue.Text
-    gChartRangeMaxValue = frm.txtMaxValue.Text
+    gChartRangeActualValue.Formula = ReturnValueFromForm(frm.refActualValue.Value)
+    gChartRangeMaxValue.Formula = ReturnValueFromForm(frm.refMaxValue.Value)
     
-    gChartEndRange1 = frm.txtRange1Max.Text
-    gChartEndRange2 = frm.txtRange2Max.Text
+    gChartEndRange1.Formula = ReturnValueFromForm(frm.refRange1Max.Value)
+    gChartEndRange2.Formula = ReturnValueFromForm(frm.refRange2Max.Value)
 
                
         
@@ -92,7 +92,7 @@ Sub BuildGaugeChart()
 
     AddShapeRight gCht, frm.cmbFontSizeMaxValue.Value, frm.lblFonColorMaxValue.BackColor
 
-    AddShapRoundedRectangle gCht
+    AddShapRoundedRectangle gCht, frm.lblBackgroundColor.BackColor
 
 
     Set GaugeGroup = ActiveSheet.Shapes.Range(Array( _
