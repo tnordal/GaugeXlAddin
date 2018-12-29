@@ -33,11 +33,24 @@ Public gRightValueRange As Range
 
 Public gActiveCell As Range
 
+Public gwsChartSettings As Worksheet
+
 
 Public Sub Testing()
-    ColorDialog
+    CleanChartSettingsheet
 End Sub
 
+Sub CleanChartSettingsheet()
+Dim shp As Shape
+
+Set gwsChartSettings = Worksheets("ChartSetup")
+
+gwsChartSettings.Activate
+
+For Each shp In gwsChartSettings.Shapes
+    shp.Delete
+Next
+End Sub
 
 Sub BuildGaugeChart()
 '    On Error GoTo BuildGaugeChart_Error
@@ -74,7 +87,7 @@ Sub BuildGaugeChart()
     gHeadingRange.Formula = frm.txtHeading.Text
     gSubHeadingRange.Formula = frm.txtSubHeading.Text
     
-    gChartRangeActualValue.Formula = ReturnValueFromForm(frm.refActualValue.Value)
+    gChartRangeActualValue.Formula = frm.txtActualValue.Text 'ReturnValueFromForm(frm.refActualValue.Value)
     gChartRangeMaxValue.Formula = ReturnValueFromForm(frm.refMaxValue.Value)
     
     gChartEndRange1.Formula = ReturnValueFromForm(frm.refRange1Max.Value)
@@ -95,6 +108,10 @@ Sub BuildGaugeChart()
     AddShapRoundedRectangle gCht, frm.lblBackgroundColor.BackColor
 
 
+'    Dim s As String
+'    s = gShpHeading.Name
+'    Debug.Print s
+    
     Set GaugeGroup = ActiveSheet.Shapes.Range(Array( _
         gCht.Parent.Name, _
         gShpCenter.Name, _
@@ -107,6 +124,13 @@ Sub BuildGaugeChart()
     GaugeGroup.Name = gChartRangeName & gChartRangeID
     
     MoveShape gChartRangeName & gChartRangeID, wsActive, rActiveCell
+
+'    Shp.OLEFormat.Object.Formula = "=A1"
+    
+'    ActiveSheet.Shapes.Range(Array(s)).Select
+'    Selection.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address
+    
+    
         
     Unload frm
     
@@ -134,18 +158,18 @@ Public Sub CopyGaugeSetup()
 ' Version: 1.1
 ' ----------------------------------------------------------------
     Dim wb As Workbook
-    Dim ws As Worksheet
+    
     Dim i As Integer
     
     Set wb = ThisWorkbook
 
     
     If WorksheetExist("ChartSetup") Then
-        Set ws = Worksheets("ChartSetup")
-        ws.Activate
+        Set gwsChartSettings = Worksheets("ChartSetup")
+        gwsChartSettings.Activate
     Else
-        Set ws = ActiveWorkbook.Worksheets.Add
-        ws.Name = "ChartSetup"
+        Set gwsChartSettings = ActiveWorkbook.Worksheets.Add
+        gwsChartSettings.Name = "ChartSetup"
         Set gActiveCell = Range("A1")
         wsGaugeSetting.Range("rGaugeSetupHeadingRange").Copy
         gActiveCell.PasteSpecial xlPasteAll
@@ -153,8 +177,8 @@ Public Sub CopyGaugeSetup()
         
     wsGaugeSetting.Range("rGaugeSetupRange").Copy
     
-    i = Application.WorksheetFunction.CountA(ws.Range("1:1"))
-    Set gActiveCell = ws.Cells(1, i + 1)
+    i = Application.WorksheetFunction.CountA(gwsChartSettings.Range("1:1"))
+    Set gActiveCell = gwsChartSettings.Cells(1, i + 1)
     
     gActiveCell.PasteSpecial xlPasteAll
     

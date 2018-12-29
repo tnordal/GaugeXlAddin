@@ -46,11 +46,11 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
     
     
     Set gShpCenter = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, gShpCenterLeft, gShpCenterTop, gShpCenterWidth, gShpCenterHight)
+    gShpCenter.OLEFormat.Object.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address
+'    Selection.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address 'gCenterValueRange.Address)
 
     gShpCenter.TextFrame2.VerticalAnchor = msoAnchorMiddle
     gShpCenter.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
-    gShpCenter.Select
-    Selection.Formula = gCenterValueRange.Address
 
     gShpCenter.TextFrame2.TextRange.Font.Name = "+mn-lt"
     gShpCenter.TextFrame2.TextRange.Font.Bold = msoTrue
@@ -66,16 +66,45 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
 
 End Sub
 
-Public Sub MoveShape(ShapeName As String, ws As Worksheet, r As Range)
+Public Sub MovingShape()
+Dim rCellToPast As Range
 
-    
-    ActiveSheet.Shapes.Range(Array(ShapeName)).Select
     Selection.Cut
+    
+    Set rCellToPast = Application.InputBox("Select where tp paste", "Gauge Addin", , , , , , 8)
+    
+    rCellToPast.Parent.Activate
+    rCellToPast.Parent.Paste
+    rCellToPast.Activate
+    
+    
+End Sub
+Public Sub MoveShape(ShapeName As String, ws As Worksheet, r As Range)
+Dim shp As ShapeRange
+Dim sh As Shape
+
+    Set shp = ActiveSheet.Shapes.Range(Array(ShapeName))
+    
+    shp.Select
+    Selection.Copy
     
     ws.Select
     r.Select
     ws.Paste
     r.Activate
+    
+'    gwsChartSettings.Activate
+'
+'    gwsChartSettings.Evaluate ("A1")
+'
+'
+'    For Each sh In gwsChartSettings.Shapes
+'
+'        sh.Delete
+'
+'    Next
+'
+'    ws.Activate
     
     
 End Sub
