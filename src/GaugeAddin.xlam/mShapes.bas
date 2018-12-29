@@ -47,7 +47,6 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
     
     Set gShpCenter = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, gShpCenterLeft, gShpCenterTop, gShpCenterWidth, gShpCenterHight)
     gShpCenter.OLEFormat.Object.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address
-'    Selection.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address 'gCenterValueRange.Address)
 
     gShpCenter.TextFrame2.VerticalAnchor = msoAnchorMiddle
     gShpCenter.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
@@ -62,8 +61,6 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
     gShpCenter.Line.visible = msoFalse
     
     
-
-
 End Sub
 
 Public Sub MovingShape()
@@ -146,11 +143,10 @@ Sub AddShapeHeading(cht As Chart, Optional FontSize As Long = 10, Optional FontC
     
     
     Set gShpHeading = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, gShpHeadingLeft, gShpHeadingTop, gShpHeadingWidth, gShpHeadingHight)
+    gShpHeading.OLEFormat.Object.Formula = "=" & gHeadingRange.Parent.Name & "!" & gHeadingRange.Address
 
     gShpHeading.TextFrame2.VerticalAnchor = msoAnchorMiddle
     gShpHeading.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
-    gShpHeading.Select
-    Selection.Formula = gHeadingRange.Address
 
     gShpHeading.TextFrame2.TextRange.Font.Name = "+mn-lt"
     gShpHeading.TextFrame2.TextRange.Font.Bold = msoTrue
@@ -203,11 +199,10 @@ Sub AddShapeSubHeading(cht As Chart, Optional FontSize As Long = 9, Optional Fon
     
     
     Set gShpSubHeading = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, gShpHeadingLeft, gShpHeadingTop, gShpHeadingWidth, gShpHeadingHight)
+    gShpSubHeading.OLEFormat.Object.Formula = "=" & gSubHeadingRange.Parent.Name & "!" & gSubHeadingRange.Address
 
     gShpSubHeading.TextFrame2.VerticalAnchor = msoAnchorMiddle
     gShpSubHeading.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignCenter
-    gShpSubHeading.Select
-    Selection.Formula = gSubHeadingRange.Address
 
     gShpSubHeading.TextFrame2.TextRange.Font.Name = "+mn-lt"
     gShpSubHeading.TextFrame2.TextRange.Font.Bold = msoTrue
@@ -219,8 +214,6 @@ Sub AddShapeSubHeading(cht As Chart, Optional FontSize As Long = 9, Optional Fon
     gShpSubHeading.Line.visible = msoFalse
     
     
-
-
 End Sub
 
 
@@ -261,11 +254,10 @@ Sub AddShapeRight(cht As Chart, Optional FontSize As Long = 8, Optional FontColo
     
     
     Set gShpRight = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, gShpHeadingLeft, gShpHeadingTop, gShpHeadingWidth, gShpHeadingHight)
-
+    gShpRight.OLEFormat.Object.Formula = "=" & gRightValueRange.Parent.Name & "!" & gRightValueRange.Address
+    
     gShpRight.TextFrame2.VerticalAnchor = msoAnchorMiddle
     gShpRight.TextFrame2.TextRange.ParagraphFormat.Alignment = msoAlignLeft
-    gShpRight.Select
-    Selection.Formula = gRightValueRange.Address
 
     gShpRight.TextFrame2.TextRange.Font.Name = "+mn-lt"
     gShpRight.TextFrame2.TextRange.Font.Bold = msoTrue

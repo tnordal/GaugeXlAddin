@@ -67,11 +67,11 @@ Sub BuildGaugeChart()
     Dim GaugeGroup As ShapeRange
     Dim frm As New frmGaugeChart
     
-    Dim wsActive As Worksheet
-    Dim rActiveCell As Range
+    Dim gwsActive As Worksheet
+    Dim grActiveCell As Range
     
-    Set wsActive = ActiveSheet
-    Set rActiveCell = ActiveCell
+    Set gwsActive = ActiveSheet
+    Set grActiveCell = ActiveCell
 
     frm.Show
 
@@ -87,13 +87,14 @@ Sub BuildGaugeChart()
     gHeadingRange.Formula = frm.txtHeading.Text
     gSubHeadingRange.Formula = frm.txtSubHeading.Text
     
-    gChartRangeActualValue.Formula = frm.txtActualValue.Text 'ReturnValueFromForm(frm.refActualValue.Value)
+    gChartRangeActualValue.Formula = ReturnValueFromForm(frm.refActualValue.Value)
     gChartRangeMaxValue.Formula = ReturnValueFromForm(frm.refMaxValue.Value)
     
     gChartEndRange1.Formula = ReturnValueFromForm(frm.refRange1Max.Value)
     gChartEndRange2.Formula = ReturnValueFromForm(frm.refRange2Max.Value)
 
-               
+    gwsActive.Activate
+    grActiveCell.Activate
         
     BasicGaugeStep frm.lblRange1Color.BackColor, frm.lblRange2Color.BackColor, frm.lblRange3Color.BackColor
     
@@ -107,10 +108,6 @@ Sub BuildGaugeChart()
 
     AddShapRoundedRectangle gCht, frm.lblBackgroundColor.BackColor
 
-
-'    Dim s As String
-'    s = gShpHeading.Name
-'    Debug.Print s
     
     Set GaugeGroup = ActiveSheet.Shapes.Range(Array( _
         gCht.Parent.Name, _
@@ -123,18 +120,11 @@ Sub BuildGaugeChart()
 
     GaugeGroup.Name = gChartRangeName & gChartRangeID
     
-    MoveShape gChartRangeName & gChartRangeID, wsActive, rActiveCell
-
-'    Shp.OLEFormat.Object.Formula = "=A1"
-    
-'    ActiveSheet.Shapes.Range(Array(s)).Select
-'    Selection.Formula = "=" & gCenterValueRange.Parent.Name & "!" & gCenterValueRange.Address
-    
-    
+    GaugeGroup.Top = grActiveCell.Top
+    GaugeGroup.Left = grActiveCell.Left
         
     Unload frm
     
-
 
 BuildGaugeChart_No_Error:
     On Error GoTo 0
