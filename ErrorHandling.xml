@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExceptionHandlers>
+  <ExceptionHandler>
+    <Description>Sample of error handler with On Error GoTo for procedure with code</Description>
+    <Text>    On Error GoTo $P[CODE_ELEMENT_NAME]_Error
+$P[METHOD_BODY]	
+    On Error GoTo 0
+    Exit $P[CODE_ELEMENT_KIND_KEYWORD]
+
+$P[CODE_ELEMENT_NAME]_Error:
+
+    MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description &amp; ") in procedure $P[CODE_ELEMENT_NAME], line " &amp; Erl &amp; "." 
+
+</Text>
+    <Author />
+    <Comment>Note: The undocumented Erl function used in the sample to get the line number requires that you add line numbers to your code. See the Add/Remove Line Numbers feature of MZ-Tools</Comment>
+    <ExpansionKeyword />
+    <CommandName />
+    <Active>1</Active>
+  </ExceptionHandler>
+  <ExceptionHandler>
+    <Description>Sample of error handler with On Error Resume Next for selected text</Description>
+    <Text>
+    On Error Resume Next
+$P[SELECTED_TEXT]
+    If Err.Number &lt;&gt; 0 Then
+       MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description &amp; ") in procedure $P[CODE_ELEMENT_NAME], line " &amp; Erl &amp; "." 
+       Exit $P[CODE_ELEMENT_KIND_KEYWORD]
+    End If
+    On Error GoTo 0
+
+</Text>
+    <Author />
+    <Comment>Note: The undocumented Erl function used in the sample to get the line number requires that you add line numbers to your code. See the Add/Remove Line Numbers feature of MZ-Tools</Comment>
+    <ExpansionKeyword />
+    <CommandName />
+    <Active>1</Active>
+  </ExceptionHandler>
+  <ExceptionHandler>
+    <Description>Error handler to log</Description>
+    <Text>On Error GoTo $P[CODE_ELEMENT_NAME]_Error
+$P[METHOD_BODY_EXCLUDING_DECLARATIONS]
+    
+$P[CODE_ELEMENT_NAME]_No_Error:	
+    On Error GoTo 0
+    Exit $P[CODE_ELEMENT_KIND_KEYWORD]
+
+$P[CODE_ELEMENT_NAME]_Error:
+
+    Call Error_Handle($P[CODE_ELEMENT_NAME], Err.Number, Err.description, Erl)
+    Goto $P[CODE_ELEMENT_NAME]_No_Error
+</Text>
+    <Author>tnord</Author>
+    <Comment />
+    <ExpansionKeyword />
+    <CommandName />
+    <Active>1</Active>
+  </ExceptionHandler>
+</ExceptionHandlers>

@@ -53,87 +53,89 @@ Next
 End Sub
 
 Sub BuildGaugeChart()
-'    On Error GoTo BuildGaugeChart_Error
+10        On Error GoTo BuildGaugeChart_Error
 
-' ----------------------------------------------------------------
-' Procedure Name: BuildGaugeChart
-' Purpose: Main procedure for making Gauge Chart
-' Procedure Kind: Sub
-' Procedure Access: Public
-' Author: Tom Nordal
-' Date: 2018-08-18
-' Version: 0.6
-' ----------------------------------------------------------------
-    Dim GaugeGroup As ShapeRange
-    Dim frm As New frmGaugeChart
-    
-    Dim gwsActive As Worksheet
-    Dim grActiveCell As Range
-    
-    Set gwsActive = ActiveSheet
-    Set grActiveCell = ActiveCell
+      ' ----------------------------------------------------------------
+      ' Procedure Name: BuildGaugeChart
+      ' Purpose: Main procedure for making Gauge Chart
+      ' Procedure Kind: Sub
+      ' Procedure Access: Public
+      ' Author: Tom Nordal
+      ' Date: 2018-08-18
+      ' Version: 0.6
+      ' ----------------------------------------------------------------
+          Dim GaugeGroup As ShapeRange
+          Dim frm As New frmGaugeChart
+          
+          Dim gwsActive As Worksheet
+          Dim grActiveCell As Range
+          
+20        Set gwsActive = ActiveSheet
+30        Set grActiveCell = ActiveCell
 
-    frm.Show
+40        frm.Show
 
-    If Not frm.ReturnValue Then
-        Unload frm
-        Exit Sub
-    End If
+50        If Not frm.ReturnValue Then
+60            Unload frm
+70            Exit Sub
+80        End If
 
 
-    CopyGaugeSetup
+90        CopyGaugeSetup
 
-    gChartRangeName.Formula = frm.txtChartName.Text
-    gHeadingRange.Formula = frm.txtHeading.Text
-    gSubHeadingRange.Formula = frm.txtSubHeading.Text
-    
-    gChartRangeActualValue.Formula = ReturnValueFromForm(frm.refActualValue.Value)
-    gChartRangeMaxValue.Formula = ReturnValueFromForm(frm.refMaxValue.Value)
-    
-    gChartEndRange1.Formula = ReturnValueFromForm(frm.refRange1Max.Value)
-    gChartEndRange2.Formula = ReturnValueFromForm(frm.refRange2Max.Value)
+100       gChartRangeName.Formula = frm.txtChartName.Text
+110       gHeadingRange.Formula = ReturnValueFromForm(frm.refHeading.Value)
+120       gSubHeadingRange.Formula = ReturnValueFromForm(frm.refSubHeading.Value)
+          
+130       gChartRangeActualValue.Formula = ReturnValueFromForm(frm.refActualValue.Value)
+140       gChartRangeMaxValue.Formula = ReturnValueFromForm(frm.refMaxValue.Value)
+          
+150       gChartEndRange1.Formula = ReturnValueFromForm(frm.refRange1Max.Value)
+160       gChartEndRange2.Formula = ReturnValueFromForm(frm.refRange2Max.Value)
 
-    gwsActive.Activate
-    grActiveCell.Activate
-        
-    BasicGaugeStep frm.lblRange1Color.BackColor, frm.lblRange2Color.BackColor, frm.lblRange3Color.BackColor
-    
-    AddShapeHeading gCht, frm.cmbFonSizeHeading.Value, frm.lblFontColorHeading.BackColor
+170       gwsActive.Activate
+180       grActiveCell.Activate
+              
+190       BasicGaugeStep frm.lblRange1Color.BackColor, frm.lblRange2Color.BackColor, frm.lblRange3Color.BackColor
+          
+200       AddShapeHeading gCht, frm.cmbFonSizeHeading.Value, frm.lblFontColorHeading.BackColor
 
-    AddShapeSubHeading gCht, frm.cmbFontSizeSubHeading.Value, frm.lblFontColorSubHeding.BackColor
+210       AddShapeSubHeading gCht, frm.cmbFontSizeSubHeading.Value, frm.lblFontColorSubHeding.BackColor
 
-    AddShapeCenter gCht, frm.cmbFontSizeActualValue.Value, frm.lblFontColorActualValue.BackColor
+220       AddShapeCenter gCht, frm.cmbFontSizeActualValue.Value, frm.lblFontColorActualValue.BackColor
 
-    AddShapeRight gCht, frm.cmbFontSizeMaxValue.Value, frm.lblFonColorMaxValue.BackColor
+230       AddShapeRight gCht, frm.cmbFontSizeMaxValue.Value, frm.lblFonColorMaxValue.BackColor
 
-    AddShapRoundedRectangle gCht, frm.lblBackgroundColor.BackColor
+240       AddShapRoundedRectangle gCht, frm.lblBackgroundColor.BackColor
 
-    
-    Set GaugeGroup = ActiveSheet.Shapes.Range(Array( _
-        gCht.Parent.Name, _
-        gShpCenter.Name, _
-        gShpHeading.Name, _
-        gShpSubHeading.Name, _
-        gShpRight.Name, gShpBackground.Name))
+          
+250       Set GaugeGroup = ActiveSheet.Shapes.Range(Array( _
+              gCht.Parent.Name, _
+              gShpCenter.Name, _
+              gShpHeading.Name, _
+              gShpSubHeading.Name, _
+              gShpRight.Name, gShpBackground.Name))
 
-    GaugeGroup.Group
+260       GaugeGroup.Group
 
-    GaugeGroup.Name = gChartRangeName & gChartRangeID
-    
-    GaugeGroup.Top = grActiveCell.Top
-    GaugeGroup.Left = grActiveCell.Left
-        
-    Unload frm
-    
+270       GaugeGroup.Name = gChartRangeName & gChartRangeID
+          
+280       GaugeGroup.Top = grActiveCell.Top
+290       GaugeGroup.Left = grActiveCell.Left
+              
+300       Unload frm
+          
+          
 
 BuildGaugeChart_No_Error:
-    On Error GoTo 0
-    Exit Sub
+310       On Error GoTo 0
+320       Exit Sub
 
 BuildGaugeChart_Error:
 
-    MsgBox "Error " & Err.Number & " (" & Err.description & ") in procedure BuildGaugeChart, line " & Erl & "."
-    GoTo BuildGaugeChart_No_Error
+'330       MsgBox "Error " & Err.Number & " (" & Err.description & ") in procedure BuildGaugeChart, line " & Erl & "."
+340       Call Error_Handle("BuildGaugeChart", Err.Number, Err.description, Erl)
+350       GoTo BuildGaugeChart_No_Error
 
 End Sub
 

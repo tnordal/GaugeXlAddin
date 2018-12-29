@@ -31,6 +31,8 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
     Dim gShpCenterWidth As Long
     Dim gShpCenterHight As Long
         
+On Error GoTo AddShapeCenter_Error
+
     chtTop = cht.ChartArea.Top
     chtLeft = cht.ChartArea.Left
     chtHight = cht.ChartArea.Height
@@ -61,6 +63,15 @@ Sub AddShapeCenter(cht As Chart, Optional FontSize As Long = 8, Optional FontCol
     gShpCenter.Line.visible = msoFalse
     
     
+    
+AddShapeCenter_No_Error:
+    On Error GoTo 0
+    Exit Sub
+
+AddShapeCenter_Error:
+
+    Call Error_Handle(AddShapeCenter, Err.Number, Err.description, Erl)
+    GoTo AddShapeCenter_No_Error
 End Sub
 
 Public Sub MovingShape()
@@ -83,26 +94,12 @@ Dim sh As Shape
     Set shp = ActiveSheet.Shapes.Range(Array(ShapeName))
     
     shp.Select
-    Selection.Copy
+    Selection.Cut
     
     ws.Select
     r.Select
     ws.Paste
     r.Activate
-    
-'    gwsChartSettings.Activate
-'
-'    gwsChartSettings.Evaluate ("A1")
-'
-'
-'    For Each sh In gwsChartSettings.Shapes
-'
-'        sh.Delete
-'
-'    Next
-'
-'    ws.Activate
-    
     
 End Sub
 
@@ -128,6 +125,8 @@ Sub AddShapeHeading(cht As Chart, Optional FontSize As Long = 10, Optional FontC
     Dim gShpHeadingWidth As Long
     Dim gShpHeadingHight As Long
         
+On Error GoTo AddShapeHeading_Error
+
     chtTop = cht.ChartArea.Top
     chtLeft = cht.ChartArea.Left
     chtHight = cht.ChartArea.Height
@@ -158,8 +157,14 @@ Sub AddShapeHeading(cht As Chart, Optional FontSize As Long = 10, Optional FontC
     gShpHeading.Line.visible = msoFalse
     
     
+AddShapeHeading_No_Error:
+    On Error GoTo 0
+    Exit Sub
 
+AddShapeHeading_Error:
 
+    Call Error_Handle(AddShapeHeading, Err.Number, Err.description, Erl)
+    GoTo AddShapeHeading_No_Error
 End Sub
 
 Sub AddShapeSubHeading(cht As Chart, Optional FontSize As Long = 9, Optional FontColor As Long = 0)
@@ -184,6 +189,8 @@ Sub AddShapeSubHeading(cht As Chart, Optional FontSize As Long = 9, Optional Fon
     Dim gShpHeadingWidth As Long
     Dim gShpHeadingHight As Long
         
+On Error GoTo AddShapeSubHeading_Error
+
     chtTop = cht.ChartArea.Top
     chtLeft = cht.ChartArea.Left
     chtHight = cht.ChartArea.Height
@@ -213,7 +220,15 @@ Sub AddShapeSubHeading(cht As Chart, Optional FontSize As Long = 9, Optional Fon
     gShpSubHeading.Fill.visible = msoFalse
     gShpSubHeading.Line.visible = msoFalse
     
-    
+     
+AddShapeSubHeading_No_Error:
+    On Error GoTo 0
+    Exit Sub
+
+AddShapeSubHeading_Error:
+
+    Call Error_Handle(AddShapeSubHeading, Err.Number, Err.description, Erl)
+    GoTo AddShapeSubHeading_No_Error
 End Sub
 
 
@@ -239,6 +254,8 @@ Sub AddShapeRight(cht As Chart, Optional FontSize As Long = 8, Optional FontColo
     Dim gShpHeadingWidth As Long
     Dim gShpHeadingHight As Long
         
+On Error GoTo AddShapeRight_Error
+
     chtTop = cht.ChartArea.Top
     chtLeft = cht.ChartArea.Left
     chtHight = cht.ChartArea.Height
@@ -269,8 +286,14 @@ Sub AddShapeRight(cht As Chart, Optional FontSize As Long = 8, Optional FontColo
     gShpRight.Line.visible = msoFalse
     
     
+AddShapeRight_No_Error:
+    On Error GoTo 0
+    Exit Sub
 
+AddShapeRight_Error:
 
+    Call Error_Handle(AddShapeRight, Err.Number, Err.description, Erl)
+    GoTo AddShapeRight_No_Error
 End Sub
 Sub AddShapRoundedRectangle(cht As Chart, Optional BackColor As Long = 13553360)
 ' ----------------------------------------------------------------
@@ -294,6 +317,8 @@ Sub AddShapRoundedRectangle(cht As Chart, Optional BackColor As Long = 13553360)
     Dim shpWidth As Long
     Dim shpHight As Long
 
+On Error GoTo AddShapRoundedRectangle_Error
+
     chtTop = cht.ChartArea.Top
     chtLeft = cht.ChartArea.Left
     chtHight = cht.ChartArea.Height
@@ -313,8 +338,15 @@ Sub AddShapRoundedRectangle(cht As Chart, Optional BackColor As Long = 13553360)
     gShpBackground.SoftEdge.Radius = 15
     gShpBackground.Fill.ForeColor.RGB = BackColor ' RGB(192, 192, 0) 'RGB(192, 192, 192)
     
-'     gShpBackground.ShapeStyle = msoShapeStylePreset27
+    
+AddShapRoundedRectangle_No_Error:
+    On Error GoTo 0
+    Exit Sub
 
+AddShapRoundedRectangle_Error:
+
+    Call Error_Handle(AddShapRoundedRectangle, Err.Number, Err.description, Erl)
+    GoTo AddShapRoundedRectangle_No_Error
 End Sub
 
 

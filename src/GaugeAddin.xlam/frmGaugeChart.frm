@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmGaugeChart 
    Caption         =   "Gauge Chart Setup"
-   ClientHeight    =   7836
+   ClientHeight    =   6900
    ClientLeft      =   96
    ClientTop       =   408
    ClientWidth     =   7704
@@ -39,13 +39,6 @@ Private Sub btnCreateChart_Click()
     m_bReturnValue = True
     Me.Hide
 End Sub
-
-Private Sub btnTesting_Click()
-    m_Cancel = True
-    m_bReturnValue = False
-    Me.Hide
-End Sub
-
 
 Private Sub lblBackgroundColor_Click()
     lblBackgroundColor.BackColor = GetColorCode(lblBackgroundColor.BackColor)

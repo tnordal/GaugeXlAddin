@@ -75,6 +75,7 @@ End Function
 Private Sub testIsFormual()
 Dim s As Variant
 
+On Error GoTo testIsFormual_Error
 s = 40
 s = "Sheet2!$B$3"
 
@@ -82,6 +83,16 @@ s = "Sheet2!$B$3"
 Debug.Print ReturnValueFromForm(s)
 
 
+
+    
+testIsFormual_No_Error:
+    On Error GoTo 0
+    Exit Sub
+
+testIsFormual_Error:
+
+    Call Error_Handle(testIsFormual, Err.Number, Err.description, Erl)
+    GoTo testIsFormual_No_Error
 End Sub
 
 Public Function WorksheetExist(wsName As String) As Boolean

@@ -23,6 +23,8 @@ Public Sub BasicGaugeStep(Optional ColorRange1 As Long = 255, Optional ColorRang
 ' ----------------------------------------------------------------
 
 
+On Error GoTo BasicGaugeStep_Error
+
     ActiveSheet.Shapes.AddChart2(201, xlColumnClustered).Select
     ActiveChart.SetSourceData Source:=gChartRangeDonut
     Set gCht = ActiveChart
@@ -129,6 +131,14 @@ Public Sub BasicGaugeStep(Optional ColorRange1 As Long = 255, Optional ColorRang
     gCht.ChartArea.Format.Fill.visible = msoFalse
     gCht.ChartArea.Format.Line.visible = msoFalse
   
-      
+    
+BasicGaugeStep_No_Error:
+    On Error GoTo 0
+    Exit Sub
+
+BasicGaugeStep_Error:
+
+    Call Error_Handle(BasicGaugeStep, Err.Number, Err.description, Erl)
+    GoTo BasicGaugeStep_No_Error
 End Sub
 
